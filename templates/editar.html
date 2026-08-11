@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Editar persona</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4">Editar persona</h2>
+
+        <form
+            action="{{ url_for('actualizar', id_persona=persona.id_persona) }}"
+            method="POST"
+        >
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Tipo de persona</label>
+
+                    <select
+                        name="tipo_persona"
+                        class="form-select"
+                        required
+                    >
+                        <option
+                            value="N"
+                            {% if persona.tipo_persona == 'N' %}selected{% endif %}
+                        >
+                            Natural
+                        </option>
+
+                        <option
+                            value="J"
+                            {% if persona.tipo_persona == 'J' %}selected{% endif %}
+                        >
+                            Jurídica
+                        </option>
+                    </select>
+                </div>
+
+                <div class="col-md-8 mb-3">
+                    <label class="form-label">Nombres</label>
+                    <input
+                        type="text"
+                        name="nombres"
+                        class="form-control"
+                        value="{{ persona.nombres or '' }}"
+                    >
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Apellido paterno</label>
+                    <input
+                        type="text"
+                        name="apaterno"
+                        class="form-control"
+                        value="{{ persona.apaterno or '' }}"
+                    >
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Apellido materno</label>
+                    <input
+                        type="text"
+                        name="amaterno"
+                        class="form-control"
+                        value="{{ persona.amaterno or '' }}"
+                    >
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Razón social</label>
+                    <input
+                        type="text"
+                        name="razon_social"
+                        class="form-control"
+                        value="{{ persona.razon_social or '' }}"
+                    >
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Nombre comercial</label>
+                    <input
+                        type="text"
+                        name="nombre_comercial"
+                        class="form-control"
+                        value="{{ persona.nombre_comercial or '' }}"
+                    >
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">ID tipo documento</label>
+                    <input
+                        type="number"
+                        name="id_tipo_documento"
+                        class="form-control"
+                        value="{{ persona.id_tipo_documento }}"
+                        required
+                    >
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Número de documento</label>
+                    <input
+                        type="text"
+                        name="numero_documento"
+                        class="form-control"
+                        value="{{ persona.numero_documento or '' }}"
+                    >
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Teléfono</label>
+                    <input
+                        type="text"
+                        name="telefono"
+                        class="form-control"
+                        value="{{ persona.telefono or '' }}"
+                    >
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Correo electrónico</label>
+                    <input
+                        type="email"
+                        name="email"
+                        class="form-control"
+                        value="{{ persona.email or '' }}"
+                    >
+                </div>
+
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">ID nacionalidad</label>
+                    <input
+                        type="number"
+                        name="id_nacionalidad"
+                        class="form-control"
+                        value="{{ persona.id_nacionalidad }}"
+                        required
+                    >
+                </div>
+
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">Estado</label>
+
+                    <select name="estado" class="form-select" required>
+                        <option
+                            value="Activo"
+                            {% if persona.estado == 'Activo' %}selected{% endif %}
+                        >
+                            Activo
+                        </option>
+
+                        <option
+                            value="Inactivo"
+                            {% if persona.estado == 'Inactivo' %}selected{% endif %}
+                        >
+                            Inactivo
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                Guardar cambios
+            </button>
+
+            <a href="{{ url_for('inicio') }}" class="btn btn-secondary">
+                Cancelar
+            </a>
+        </form>
+    </div>
+</body>
+
+</html>
