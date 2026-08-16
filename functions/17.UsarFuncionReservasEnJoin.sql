@@ -3,16 +3,17 @@ GO
 
 -- EJERCICIO 10:
 -- Utilizar la función del ejercicio 9 en un JOIN.
+USE TURISMOPERU_JECT;
+GO
 
 SELECT
-    P.id_persona AS IdCliente,
+    C.id_persona AS IdCliente,
     JECT.fn_NombreCompletoPersona(P.id_persona) AS Cliente,
-    P.numero_documento AS NumeroDocumento,
-    P.email AS Email,
+    P.numero_documento,
+    P.email,
 
     F.IdReserva,
     F.CodigoReserva,
-    F.FechaReserva,
     F.FechaInicio,
     F.FechaFin,
     F.EstadoReserva,
@@ -21,11 +22,14 @@ SELECT
     GETDATE() AS FechaConsulta,
     JECT.fn_NombreCompletoPersona(108) AS Estudiante
 
-FROM JECT.persona AS P
+FROM JECT.cliente AS C
+INNER JOIN JECT.persona AS P
+    ON C.id_persona = P.id_persona
 
-INNER JOIN JECT.fn_MT_ReservasClienteEstado(2, NULL) AS F
-    ON F.IdCliente = P.id_persona
+CROSS APPLY JECT.fn_MT_ReservasClienteEstado
+(
+    C.id_persona,
+    NULL
+) AS F
 
-WHERE P.id_persona = 2
-
-ORDER BY F.FechaReserva;
+ORDER BY C.id_persona, F.FechaReserva;
